@@ -54,7 +54,7 @@ module Weighable
         it 'returns the correct weight with no abbreviation' do
           expect(Weight.parse('1')).to eq(Weight.new(1, :unit))
         end
-        
+
         it 'returns the correct weight with trailing space' do
           expect(Weight.parse('1 ')).to eq(Weight.new(1, :unit))
         end
@@ -223,7 +223,7 @@ module Weighable
         end
 
         it 'two unlike weights' do
-          expect(weight_gram + weight_ounce).to eq(Weight.new(BigDecimal.new('29.54952'), :gram))
+          expect(weight_gram + weight_ounce).to eq(Weight.new(BigDecimal('29.54952'), :gram))
         end
 
         it 'two unlike unit types' do
@@ -238,7 +238,7 @@ module Weighable
         end
 
         it 'two unlike weights' do
-          expect(weight_gram - weight_ounce).to eq(Weight.new(BigDecimal.new('-27.14952'), :gram))
+          expect(weight_gram - weight_ounce).to eq(Weight.new(BigDecimal('-27.14952'), :gram))
         end
 
         it 'two unlike unit types' do
@@ -254,7 +254,7 @@ module Weighable
         end
 
         it 'two unlike weights' do
-          expect(weight_gram * weight_ounce).to eq(Weight.new(BigDecimal.new('34.019424'), :gram))
+          expect(weight_gram * weight_ounce).to eq(Weight.new(BigDecimal('34.019424'), :gram))
         end
 
         it 'two unlike unit types' do
@@ -277,7 +277,7 @@ module Weighable
         end
 
         it 'two unlike weights' do
-          expect((weight_gram / weight_ounce).round(9)).to eq(BigDecimal.new('0.042328759'))
+          expect((weight_gram / weight_ounce).round(9)).to eq(BigDecimal('0.042328759'))
         end
 
         it 'two unlike unit types' do
@@ -295,66 +295,66 @@ module Weighable
     end
 
     context 'round' do
-      let(:weight) { Weight.new(BigDecimal.new('60') / BigDecimal.new('34'), :gram) }
+      let(:weight) { Weight.new(BigDecimal('60') / BigDecimal('34'), :gram) }
 
       it 'rounds the value to specified precision' do
-        expect(weight.round(8)).to eq(Weight.new(BigDecimal.new('1.76470588'), :gram))
+        expect(weight.round(8)).to eq(Weight.new(BigDecimal('1.76470588'), :gram))
       end
 
       it 'should return a copy' do
         weight.round
-        expect(weight.value.round(8)).to eq(BigDecimal.new('1.76470588'))
+        expect(weight.value.round(8)).to eq(BigDecimal('1.76470588'))
       end
 
       it 'rounds the value to default precision' do
-        expect(weight.round).to eq(Weight.new(BigDecimal.new('2'), :gram))
+        expect(weight.round).to eq(Weight.new(BigDecimal('2'), :gram))
       end
     end
 
     context 'floor' do
-      let(:weight) { Weight.new(BigDecimal.new('60') / BigDecimal.new('34'), :gram) }
+      let(:weight) { Weight.new(BigDecimal('60') / BigDecimal('34'), :gram) }
 
       it 'floors the value to specified precision' do
-        expect(weight.floor(8)).to eq(Weight.new(BigDecimal.new('1.76470588'), :gram))
+        expect(weight.floor(8)).to eq(Weight.new(BigDecimal('1.76470588'), :gram))
       end
 
       it 'should return a copy' do
         weight.floor
-        expect(weight.value.floor(8)).to eq(BigDecimal.new('1.76470588'))
+        expect(weight.value.floor(8)).to eq(BigDecimal('1.76470588'))
       end
 
       it 'floors the value to default precision' do
-        expect(weight.floor).to eq(Weight.new(BigDecimal.new('1'), :gram))
+        expect(weight.floor).to eq(Weight.new(BigDecimal('1'), :gram))
       end
     end
 
     context 'ceil' do
-      let(:weight) { Weight.new(BigDecimal.new('60') / BigDecimal.new('34'), :gram) }
+      let(:weight) { Weight.new(BigDecimal('60') / BigDecimal('34'), :gram) }
 
       it 'ceils the value to specified precision' do
-        expect(weight.ceil(8)).to eq(Weight.new(BigDecimal.new('1.76470589'), :gram))
+        expect(weight.ceil(8)).to eq(Weight.new(BigDecimal('1.76470589'), :gram))
       end
 
       it 'should return a copy' do
         weight.ceil
-        expect(weight.value.ceil(8)).to eq(BigDecimal.new('1.76470589'))
+        expect(weight.value.ceil(8)).to eq(BigDecimal('1.76470589'))
       end
 
       it 'ceils the value to default precision' do
-        expect(weight.ceil).to eq(Weight.new(BigDecimal.new('2'), :gram))
+        expect(weight.ceil).to eq(Weight.new(BigDecimal('2'), :gram))
       end
     end
 
     context 'abs' do
-      let(:weight) { Weight.new(BigDecimal.new('-20'), :gram) }
+      let(:weight) { Weight.new(BigDecimal('-20'), :gram) }
 
       it 'returns absolute value' do
-        expect(weight.abs).to eq(Weight.new(BigDecimal.new('20.0'), :gram))
+        expect(weight.abs).to eq(Weight.new(BigDecimal('20.0'), :gram))
       end
 
       it 'should return a copy' do
         weight.abs
-        expect(weight.value).to eq(BigDecimal.new('-20'))
+        expect(weight.value).to eq(BigDecimal('-20'))
       end
 
     end
@@ -579,38 +579,38 @@ module Weighable
       let(:weight) { Weight.new(1, :gram) }
 
       it 'converts to gram' do
-        gram = BigDecimal.new('1')
+        gram = BigDecimal('1')
         expect(weight.to(:gram)).to eq(Weight.new(gram, :gram))
         expect(weight.to_gram).to eq(Weight.new(gram, :gram))
-        expect(weight.to(:gram).value.round(9)).to eq(BigDecimal.new('1'))
+        expect(weight.to(:gram).value.round(9)).to eq(BigDecimal('1'))
       end
 
       it 'converts to ounce' do
-        ounce = BigDecimal.new('1') / BigDecimal.new('28.34952')
+        ounce = BigDecimal('1') / BigDecimal('28.34952')
         expect(weight.to(:ounce)).to eq(Weight.new(ounce, :ounce))
         expect(weight.to_ounce).to eq(Weight.new(ounce, :ounce))
-        expect(weight.to(:ounce).value.round(9)).to eq(BigDecimal.new('0.035273966'))
+        expect(weight.to(:ounce).value.round(9)).to eq(BigDecimal('0.035273966'))
       end
 
       it 'converts to pound' do
-        pound = BigDecimal.new('1') / BigDecimal.new('453.59237')
+        pound = BigDecimal('1') / BigDecimal('453.59237')
         expect(weight.to(:pound)).to eq(Weight.new(pound, :pound))
         expect(weight.to_pound).to eq(Weight.new(pound, :pound))
-        expect(weight.to(:pound).value.round(9)).to eq(BigDecimal.new('0.002204623'))
+        expect(weight.to(:pound).value.round(9)).to eq(BigDecimal('0.002204623'))
       end
 
       it 'converts to milligram' do
-        milligram = BigDecimal.new('1') * BigDecimal.new('1000')
+        milligram = BigDecimal('1') * BigDecimal('1000')
         expect(weight.to(:milligram)).to eq(Weight.new(milligram, :milligram))
         expect(weight.to_milligram).to eq(Weight.new(milligram, :milligram))
-        expect(weight.to(:milligram).value.round(9)).to eq(BigDecimal.new('1000'))
+        expect(weight.to(:milligram).value.round(9)).to eq(BigDecimal('1000'))
       end
 
       it 'converts to kilogram' do
-        kilogram = BigDecimal.new('1') / BigDecimal.new('1000')
+        kilogram = BigDecimal('1') / BigDecimal('1000')
         expect(weight.to(:kilogram)).to eq(Weight.new(kilogram, :kilogram))
         expect(weight.to_kilogram).to eq(Weight.new(kilogram, :kilogram))
-        expect(weight.to(:kilogram).value.round(9)).to eq(BigDecimal.new('0.001'))
+        expect(weight.to(:kilogram).value.round(9)).to eq(BigDecimal('0.001'))
       end
 
       it 'does not convert to unit' do
@@ -618,10 +618,10 @@ module Weighable
       end
 
       it 'converts to fluid ounce' do
-        fluid_ounce = BigDecimal.new('1') / BigDecimal.new('28.34952')
+        fluid_ounce = BigDecimal('1') / BigDecimal('28.34952')
         expect(weight.to(:fluid_ounce)).to eq(Weight.new(fluid_ounce, :fluid_ounce))
         expect(weight.to_fluid_ounce).to eq(Weight.new(fluid_ounce, :fluid_ounce))
-        expect(weight.to(:fluid_ounce).value.round(9)).to eq(BigDecimal.new('0.035273966'))
+        expect(weight.to(:fluid_ounce).value.round(9)).to eq(BigDecimal('0.035273966'))
       end
     end
 
@@ -629,38 +629,38 @@ module Weighable
       let(:weight) { Weight.new(1, :ounce) }
 
       it 'converts to gram' do
-        gram = BigDecimal.new('1') * BigDecimal.new('28.34952')
+        gram = BigDecimal('1') * BigDecimal('28.34952')
         expect(weight.to(:gram)).to eq(Weight.new(gram, :gram))
         expect(weight.to_gram).to eq(Weight.new(gram, :gram))
-        expect(weight.to(:gram).value.round(9)).to eq(BigDecimal.new('28.34952'))
+        expect(weight.to(:gram).value.round(9)).to eq(BigDecimal('28.34952'))
       end
 
       it 'converts to ounce' do
-        ounce = BigDecimal.new('1')
+        ounce = BigDecimal('1')
         expect(weight.to(:ounce)).to eq(Weight.new(ounce, :ounce))
         expect(weight.to_ounce).to eq(Weight.new(ounce, :ounce))
-        expect(weight.to(:ounce).value.round(9)).to eq(BigDecimal.new('1'))
+        expect(weight.to(:ounce).value.round(9)).to eq(BigDecimal('1'))
       end
 
       it 'converts to pound' do
-        pound = BigDecimal.new('1') / BigDecimal.new('16')
+        pound = BigDecimal('1') / BigDecimal('16')
         expect(weight.to(:pound)).to eq(Weight.new(pound, :pound))
         expect(weight.to_pound).to eq(Weight.new(pound, :pound))
-        expect(weight.to(:pound).value.round(9)).to eq(BigDecimal.new('0.0625'))
+        expect(weight.to(:pound).value.round(9)).to eq(BigDecimal('0.0625'))
       end
 
       it 'converts to milligram' do
-        milligram = BigDecimal.new('1') * BigDecimal.new('28349.52')
+        milligram = BigDecimal('1') * BigDecimal('28349.52')
         expect(weight.to(:milligram)).to eq(Weight.new(milligram, :milligram))
         expect(weight.to_milligram).to eq(Weight.new(milligram, :milligram))
-        expect(weight.to(:milligram).value.round(9)).to eq(BigDecimal.new('28349.52'))
+        expect(weight.to(:milligram).value.round(9)).to eq(BigDecimal('28349.52'))
       end
 
       it 'converts to kilogram' do
-        kilogram = BigDecimal.new('1') * BigDecimal.new('0.02834952')
+        kilogram = BigDecimal('1') * BigDecimal('0.02834952')
         expect(weight.to(:kilogram)).to eq(Weight.new(kilogram, :kilogram))
         expect(weight.to_kilogram).to eq(Weight.new(kilogram, :kilogram))
-        expect(weight.to(:kilogram).value.round(9)).to eq(BigDecimal.new('0.02834952'))
+        expect(weight.to(:kilogram).value.round(9)).to eq(BigDecimal('0.02834952'))
       end
 
       it 'does not convert to unit' do
@@ -668,10 +668,10 @@ module Weighable
       end
 
       it 'converts to fluid ounce' do
-        fluid_ounce = BigDecimal.new('1')
+        fluid_ounce = BigDecimal('1')
         expect(weight.to(:fluid_ounce)).to eq(Weight.new(fluid_ounce, :fluid_ounce))
         expect(weight.to_fluid_ounce).to eq(Weight.new(fluid_ounce, :fluid_ounce))
-        expect(weight.to(:fluid_ounce).value.round(9)).to eq(BigDecimal.new('1'))
+        expect(weight.to(:fluid_ounce).value.round(9)).to eq(BigDecimal('1'))
       end
     end
 
@@ -679,38 +679,38 @@ module Weighable
       let(:weight) { Weight.new(1, :pound) }
 
       it 'converts to gram' do
-        gram = BigDecimal.new('1') * BigDecimal.new('453.59237')
+        gram = BigDecimal('1') * BigDecimal('453.59237')
         expect(weight.to(:gram)).to eq(Weight.new(gram, :gram))
         expect(weight.to_gram).to eq(Weight.new(gram, :gram))
-        expect(weight.to(:gram).value.round(9)).to eq(BigDecimal.new('453.59237'))
+        expect(weight.to(:gram).value.round(9)).to eq(BigDecimal('453.59237'))
       end
 
       it 'converts to ounce' do
-        ounce = BigDecimal.new('1') * BigDecimal.new('16')
+        ounce = BigDecimal('1') * BigDecimal('16')
         expect(weight.to(:ounce)).to eq(Weight.new(ounce, :ounce))
         expect(weight.to_ounce).to eq(Weight.new(ounce, :ounce))
-        expect(weight.to(:ounce).value.round(9)).to eq(BigDecimal.new('16'))
+        expect(weight.to(:ounce).value.round(9)).to eq(BigDecimal('16'))
       end
 
       it 'converts to pound' do
-        pound = BigDecimal.new('1')
+        pound = BigDecimal('1')
         expect(weight.to(:pound)).to eq(Weight.new(pound, :pound))
         expect(weight.to_pound).to eq(Weight.new(pound, :pound))
-        expect(weight.to(:pound).value.round(9)).to eq(BigDecimal.new('1'))
+        expect(weight.to(:pound).value.round(9)).to eq(BigDecimal('1'))
       end
 
       it 'converts to milligram' do
-        milligram = BigDecimal.new('1') * BigDecimal.new('453592.37')
+        milligram = BigDecimal('1') * BigDecimal('453592.37')
         expect(weight.to(:milligram)).to eq(Weight.new(milligram, :milligram))
         expect(weight.to_milligram).to eq(Weight.new(milligram, :milligram))
-        expect(weight.to(:milligram).value.round(9)).to eq(BigDecimal.new('453592.37'))
+        expect(weight.to(:milligram).value.round(9)).to eq(BigDecimal('453592.37'))
       end
 
       it 'converts to kilogram' do
-        kilogram = BigDecimal.new('1') * BigDecimal.new('0.45359237')
+        kilogram = BigDecimal('1') * BigDecimal('0.45359237')
         expect(weight.to(:kilogram)).to eq(Weight.new(kilogram, :kilogram))
         expect(weight.to_kilogram).to eq(Weight.new(kilogram, :kilogram))
-        expect(weight.to(:kilogram).value.round(9)).to eq(BigDecimal.new('0.45359237'))
+        expect(weight.to(:kilogram).value.round(9)).to eq(BigDecimal('0.45359237'))
       end
 
       it 'does not convert to unit' do
@@ -718,10 +718,10 @@ module Weighable
       end
 
       it 'converts to fluid ounce' do
-        fluid_ounce = BigDecimal.new('1') * BigDecimal.new('16')
+        fluid_ounce = BigDecimal('1') * BigDecimal('16')
         expect(weight.to(:fluid_ounce)).to eq(Weight.new(fluid_ounce, :fluid_ounce))
         expect(weight.to_fluid_ounce).to eq(Weight.new(fluid_ounce, :fluid_ounce))
-        expect(weight.to(:fluid_ounce).value.round(9)).to eq(BigDecimal.new('16'))
+        expect(weight.to(:fluid_ounce).value.round(9)).to eq(BigDecimal('16'))
       end
     end
 
@@ -729,38 +729,38 @@ module Weighable
       let(:weight) { Weight.new(1, :milligram) }
 
       it 'converts to gram' do
-        gram = BigDecimal.new('1') / BigDecimal.new('1000')
+        gram = BigDecimal('1') / BigDecimal('1000')
         expect(weight.to(:gram)).to eq(Weight.new(gram, :gram))
         expect(weight.to_gram).to eq(Weight.new(gram, :gram))
-        expect(weight.to(:gram).value.round(9)).to eq(BigDecimal.new('0.001'))
+        expect(weight.to(:gram).value.round(9)).to eq(BigDecimal('0.001'))
       end
 
       it 'converts to ounce' do
-        ounce = BigDecimal.new('1') / BigDecimal.new('28349.52')
+        ounce = BigDecimal('1') / BigDecimal('28349.52')
         expect(weight.to(:ounce)).to eq(Weight.new(ounce, :ounce))
         expect(weight.to_ounce).to eq(Weight.new(ounce, :ounce))
-        expect(weight.to(:ounce).value.round(9)).to eq(BigDecimal.new('0.000035274'))
+        expect(weight.to(:ounce).value.round(9)).to eq(BigDecimal('0.000035274'))
       end
 
       it 'converts to pound' do
-        pound = BigDecimal.new('1') / BigDecimal.new('453592.37')
+        pound = BigDecimal('1') / BigDecimal('453592.37')
         expect(weight.to(:pound)).to eq(Weight.new(pound, :pound))
         expect(weight.to_pound).to eq(Weight.new(pound, :pound))
-        expect(weight.to(:pound).value.round(9)).to eq(BigDecimal.new('0.000002205'))
+        expect(weight.to(:pound).value.round(9)).to eq(BigDecimal('0.000002205'))
       end
 
       it 'converts to milligram' do
-        milligram = BigDecimal.new('1')
+        milligram = BigDecimal('1')
         expect(weight.to(:milligram)).to eq(Weight.new(milligram, :milligram))
         expect(weight.to_milligram).to eq(Weight.new(milligram, :milligram))
-        expect(weight.to(:milligram).value.round(9)).to eq(BigDecimal.new('1'))
+        expect(weight.to(:milligram).value.round(9)).to eq(BigDecimal('1'))
       end
 
       it 'converts to kilogram' do
-        kilogram = BigDecimal.new('1') / BigDecimal.new('1000000')
+        kilogram = BigDecimal('1') / BigDecimal('1000000')
         expect(weight.to(:kilogram)).to eq(Weight.new(kilogram, :kilogram))
         expect(weight.to_kilogram).to eq(Weight.new(kilogram, :kilogram))
-        expect(weight.to(:kilogram).value.round(9)).to eq(BigDecimal.new('0.000001'))
+        expect(weight.to(:kilogram).value.round(9)).to eq(BigDecimal('0.000001'))
       end
 
       it 'does not convert to unit' do
@@ -768,10 +768,10 @@ module Weighable
       end
 
       it 'converts to fluid ounce' do
-        fluid_ounce = BigDecimal.new('1') / BigDecimal.new('28349.52')
+        fluid_ounce = BigDecimal('1') / BigDecimal('28349.52')
         expect(weight.to(:fluid_ounce)).to eq(Weight.new(fluid_ounce, :fluid_ounce))
         expect(weight.to_fluid_ounce).to eq(Weight.new(fluid_ounce, :fluid_ounce))
-        expect(weight.to(:fluid_ounce).value.round(9)).to eq(BigDecimal.new('0.000035274'))
+        expect(weight.to(:fluid_ounce).value.round(9)).to eq(BigDecimal('0.000035274'))
       end
     end
 
@@ -779,38 +779,38 @@ module Weighable
       let(:weight) { Weight.new(1, :kilogram) }
 
       it 'converts to gram' do
-        gram = BigDecimal.new('1') * BigDecimal.new('1000')
+        gram = BigDecimal('1') * BigDecimal('1000')
         expect(weight.to(:gram)).to eq(Weight.new(gram, :gram))
         expect(weight.to_gram).to eq(Weight.new(gram, :gram))
-        expect(weight.to(:gram).value.round(9)).to eq(BigDecimal.new('1000'))
+        expect(weight.to(:gram).value.round(9)).to eq(BigDecimal('1000'))
       end
 
       it 'converts to ounce' do
-        ounce = BigDecimal.new('1') / BigDecimal.new('0.02834952')
+        ounce = BigDecimal('1') / BigDecimal('0.02834952')
         expect(weight.to(:ounce)).to eq(Weight.new(ounce, :ounce))
         expect(weight.to_ounce).to eq(Weight.new(ounce, :ounce))
-        expect(weight.to(:ounce).value.round(9)).to eq(BigDecimal.new('35.273965838'))
+        expect(weight.to(:ounce).value.round(9)).to eq(BigDecimal('35.273965838'))
       end
 
       it 'converts to pound' do
-        pound = BigDecimal.new('1') / BigDecimal.new('0.45359237')
+        pound = BigDecimal('1') / BigDecimal('0.45359237')
         expect(weight.to(:pound)).to eq(Weight.new(pound, :pound))
         expect(weight.to_pound).to eq(Weight.new(pound, :pound))
-        expect(weight.to(:pound).value.round(9)).to eq(BigDecimal.new('2.204622622'))
+        expect(weight.to(:pound).value.round(9)).to eq(BigDecimal('2.204622622'))
       end
 
       it 'converts to milligram' do
-        milligram = BigDecimal.new('1') * BigDecimal.new('1000000')
+        milligram = BigDecimal('1') * BigDecimal('1000000')
         expect(weight.to(:milligram)).to eq(Weight.new(milligram, :milligram))
         expect(weight.to_milligram).to eq(Weight.new(milligram, :milligram))
-        expect(weight.to(:milligram).value.round(9)).to eq(BigDecimal.new('1000000'))
+        expect(weight.to(:milligram).value.round(9)).to eq(BigDecimal('1000000'))
       end
 
       it 'converts to kilogram' do
-        kilogram = BigDecimal.new('1')
+        kilogram = BigDecimal('1')
         expect(weight.to(:kilogram)).to eq(Weight.new(kilogram, :kilogram))
         expect(weight.to_kilogram).to eq(Weight.new(kilogram, :kilogram))
-        expect(weight.to(:kilogram).value.round(9)).to eq(BigDecimal.new('1'))
+        expect(weight.to(:kilogram).value.round(9)).to eq(BigDecimal('1'))
       end
 
       it 'does not convert to unit' do
@@ -818,10 +818,10 @@ module Weighable
       end
 
       it 'converts to fluid ounce' do
-        fluid_ounce = BigDecimal.new('1') / BigDecimal.new('0.02834952')
+        fluid_ounce = BigDecimal('1') / BigDecimal('0.02834952')
         expect(weight.to(:fluid_ounce)).to eq(Weight.new(fluid_ounce, :fluid_ounce))
         expect(weight.to_fluid_ounce).to eq(Weight.new(fluid_ounce, :fluid_ounce))
-        expect(weight.to(:fluid_ounce).value.round(9)).to eq(BigDecimal.new('35.273965838'))
+        expect(weight.to(:fluid_ounce).value.round(9)).to eq(BigDecimal('35.273965838'))
       end
     end
 
@@ -853,10 +853,10 @@ module Weighable
       end
 
       it 'converts to unit' do
-        unit = BigDecimal.new('1')
+        unit = BigDecimal('1')
         expect(weight.to(:unit)).to eq(Weight.new(unit, :unit))
         expect(weight.to_unit).to eq(Weight.new(unit, :unit))
-        expect(weight.to(:unit).value.round(9)).to eq(BigDecimal.new('1'))
+        expect(weight.to(:unit).value.round(9)).to eq(BigDecimal('1'))
       end
     end
 
@@ -864,38 +864,38 @@ module Weighable
       let(:weight) { Weight.new(1, :fluid_ounce) }
 
       it 'converts to gram' do
-        gram = BigDecimal.new('1') * BigDecimal.new('28.34952')
+        gram = BigDecimal('1') * BigDecimal('28.34952')
         expect(weight.to(:gram)).to eq(Weight.new(gram, :gram))
         expect(weight.to_gram).to eq(Weight.new(gram, :gram))
-        expect(weight.to(:gram).value.round(9)).to eq(BigDecimal.new('28.34952'))
+        expect(weight.to(:gram).value.round(9)).to eq(BigDecimal('28.34952'))
       end
 
       it 'converts to ounce with identity' do
-        unit = BigDecimal.new('1')
+        unit = BigDecimal('1')
         expect(weight.to(:ounce)).to eq(Weight.new(unit, :ounce))
         expect(weight.to_ounce).to eq(Weight.new(unit, :ounce))
-        expect(weight.to(:ounce).value.round(9)).to eq(BigDecimal.new('1'))
+        expect(weight.to(:ounce).value.round(9)).to eq(BigDecimal('1'))
       end
 
       it 'converts to pound' do
-        pound = BigDecimal.new('1') / BigDecimal.new('16')
+        pound = BigDecimal('1') / BigDecimal('16')
         expect(weight.to(:pound)).to eq(Weight.new(pound, :pound))
         expect(weight.to_pound).to eq(Weight.new(pound, :pound))
-        expect(weight.to(:pound).value.round(9)).to eq(BigDecimal.new('0.0625'))
+        expect(weight.to(:pound).value.round(9)).to eq(BigDecimal('0.0625'))
       end
 
       it 'converts to milligram' do
-        milligram = BigDecimal.new('1') * BigDecimal.new('28349.52')
+        milligram = BigDecimal('1') * BigDecimal('28349.52')
         expect(weight.to(:milligram)).to eq(Weight.new(milligram, :milligram))
         expect(weight.to_milligram).to eq(Weight.new(milligram, :milligram))
-        expect(weight.to(:milligram).value.round(9)).to eq(BigDecimal.new('28349.52'))
+        expect(weight.to(:milligram).value.round(9)).to eq(BigDecimal('28349.52'))
       end
 
       it 'converts to kilogram' do
-        kilogram = BigDecimal.new('1') * BigDecimal.new('0.02834952')
+        kilogram = BigDecimal('1') * BigDecimal('0.02834952')
         expect(weight.to(:kilogram)).to eq(Weight.new(kilogram, :kilogram))
         expect(weight.to_kilogram).to eq(Weight.new(kilogram, :kilogram))
-        expect(weight.to(:kilogram).value.round(9)).to eq(BigDecimal.new('0.02834952'))
+        expect(weight.to(:kilogram).value.round(9)).to eq(BigDecimal('0.02834952'))
       end
 
       it 'does not convert to unit' do
@@ -903,10 +903,10 @@ module Weighable
       end
 
       it 'converts to fluid ounce' do
-        unit = BigDecimal.new('1')
+        unit = BigDecimal('1')
         expect(weight.to(:fluid_ounce)).to eq(Weight.new(unit, :fluid_ounce))
         expect(weight.to_fluid_ounce).to eq(Weight.new(unit, :fluid_ounce))
-        expect(weight.to(:fluid_ounce).value.round(9)).to eq(BigDecimal.new('1'))
+        expect(weight.to(:fluid_ounce).value.round(9)).to eq(BigDecimal('1'))
       end
     end
   end
