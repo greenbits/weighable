@@ -13,6 +13,7 @@ module Weighable
 
       def define_setter(column, store_as: :gram, precision: nil)
         define_method "#{column}=" do |weight|
+          weight = weight.with_indifferent_access if weight.respond_to?(:with_indifferent_access)
           if weight.respond_to?(:key?) && weight.key?('value') && weight.key?('unit')
             weight = Weight.new(weight['value'], weight['unit'])
           end
