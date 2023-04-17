@@ -195,26 +195,36 @@ module Weighable
     end
 
     def <(other)
+      return @value < other if other == 0
+
       other = other.to(unit_name)
       @value < other.value
     end
 
     def <=(other)
+      return @value <= other if other == 0
+
       other = other.to(unit_name)
       @value <= other.value
     end
 
     def >(other)
+      return @value > other if other == 0
+
       other = other.to(unit_name)
       @value > other.value
     end
 
     def >=(other)
+      return @value >= other if other == 0
+
       other = other.to(unit_name)
       @value >= other.value
     end
 
     def <=>(other)
+      return @value <=> other if other == 0
+
       other = other.to(unit_name)
       @value <=> other.value
     end
